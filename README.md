@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Introduction
+
+I am happy to present this frontend test to apply to a developer position @ Planity. The goal of this project is to render events on a calendar.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

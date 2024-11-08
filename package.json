@@ -1,5 +1,6 @@
 {
-  "name": "planity-test",
+  "name": "calendar",
+  "description": "Planity test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
