@@ -1,0 +1,9 @@
+.event {
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  position: absolute;
+  box-sizing: border-box;
+}
