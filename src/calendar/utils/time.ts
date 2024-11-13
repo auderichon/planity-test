@@ -1,3 +1,5 @@
+import { EventInputInterface, TimeSlotType } from "../../types";
+
 export const getTimeStringInMinutes = (time: string): number => {
   const hoursMinutesArray = time.split(":");
   const hours = Number(hoursMinutesArray[0]);
@@ -12,3 +14,14 @@ export const getDurationInMinutes = ({
   startTime: string;
   endTime: string;
 }) => getTimeStringInMinutes(endTime) - getTimeStringInMinutes(startTime);
+
+export const getEventTimeSlot = (
+  event: EventInputInterface,
+  startTime: string
+): TimeSlotType => {
+  const startTimePosition = getDurationInMinutes({
+    startTime,
+    endTime: event.start,
+  });
+  return [startTimePosition, startTimePosition + event.duration];
+};
