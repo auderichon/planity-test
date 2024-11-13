@@ -1,9 +1,9 @@
 .event {
-  border: 1px solid;
+  border: var(--border-width) solid var(--color-black);
   border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
+  align-items: center;
   font-weight: bold;
   position: absolute;
-  box-sizing: border-box;
 }

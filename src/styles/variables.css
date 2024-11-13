@@ -3,5 +3,7 @@
   --color-black: black;
   --color-light-grey: #f7f7f7;
   --color-grey: #c7cfd7;
-  --border-radius: 10px;
+  --border-radius: 5px;
+  --border-width: 1px;
+  --standard-space: 5px;
 }

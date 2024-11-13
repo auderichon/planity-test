@@ -1,0 +1,9 @@
+.timeRange {
+  height: 100%;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 10px;
+}
