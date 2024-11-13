@@ -50,6 +50,9 @@ export const EventsList: React.FC = () => {
       ...event,
       timeSlot: getEventTimeSlot(event, startTime),
     }))
+    .filter(
+      (event) => event.timeSlot[0] >= 0 && event.timeSlot[1] <= dailyMinutes
+    )
     .sort((event1, event2) => event1.timeSlot[0] - event2.timeSlot[0]);
 
   // list overlapping events
