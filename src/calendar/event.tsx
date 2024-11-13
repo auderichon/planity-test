@@ -1,38 +1,41 @@
 import React from "react";
+
+import { EventDetailsInterface, EventIdType } from "../types";
+import { getMaxOverlappingEvents } from "./utils";
+
 import "../styles/event.css";
-import { END_TIME, START_TIME } from "./calendar";
-import { getDurationInMinutes } from "../utils/time";
 
 interface EventInterface {
-  event: {
-    id: number;
-    start: string;
-    duration: number;
-  };
+  id: EventIdType;
+  event: EventDetailsInterface;
+  dailyMinutes: number;
   color: string;
 }
 
-export const Event: React.FC<EventInterface> = ({ event, color }) => {
-  const totalDuration = getDurationInMinutes({
-    startTime: START_TIME,
-    endTime: END_TIME,
-  });
-  const startTimePosition = getDurationInMinutes({
-    startTime: START_TIME,
-    endTime: event.start,
-  });
-  console.log("id", event.id, "startTimePosition", startTimePosition);
+export const Event: React.FC<EventInterface> = ({
+  id,
+  event,
+  dailyMinutes,
+  color,
+}) => {
+  const { duration, timeSlot, overlaps, position } = event;
+  const nbOfOverlaps = getMaxOverlappingEvents(overlaps.map((o) => o.on));
+  const width = `calc((100% - ${
+    nbOfOverlaps - 1
+  } * var(--standard-space))/${nbOfOverlaps})`;
+
   return (
     <div
       className="event"
       style={{
         backgroundColor: color,
-        height: `${(event.duration / totalDuration) * 100}%`,
-        top: `${(startTimePosition / totalDuration) * 100}%`,
-        width: "100%",
+        height: `${(duration / dailyMinutes) * 100}%`,
+        marginTop: `${(timeSlot[0] / dailyMinutes) * 100}%`,
+        width,
+        left: `calc((${width} + var(--standard-space)) * ${position - 1})`,
       }}
     >
-      {event.id}
+      {id}
     </div>
   );
 };

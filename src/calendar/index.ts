@@ -1,3 +1,4 @@
 export * from "./calendar";
+export * from "./event";
 export * from "./events-list";
-export * from "./time-values";
+export * from "./time-range";
