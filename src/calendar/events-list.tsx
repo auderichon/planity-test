@@ -20,10 +20,25 @@ import "../styles/events-list.css";
 const EVENT_COLORS = ["#f3c1d3", "#a8d8e6", "#c3b7e1", "#fff6a0", "#ff9a8b"];
 
 export const EventsList: React.FC = () => {
+  const [windowHeight, setWindowHeight] = React.useState(window.innerHeight);
+  const [containerHeight, setContainerHeight] = React.useState(0);
+
+  // track window resizing to adjust events height
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [windowHeight]);
+
   const { startTime, endTime } = React.useContext(
     CalendarContext
   ) as CalendarContextInterface;
-
   const dailyMinutes = getDurationInMinutes({
     startTime,
     endTime,
@@ -61,15 +76,25 @@ export const EventsList: React.FC = () => {
     new Map<EventIdType, EventDetailsInterface>()
   );
 
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useLayoutEffect(() => {
+    if (containerRef.current) {
+      const height = containerRef.current.offsetHeight;
+      setContainerHeight(height);
+    }
+  }, [windowHeight]);
+
   return (
     <div className="eventsList">
-      <div className="eventsContainer">
+      <div className="eventsContainer" ref={containerRef}>
         {Array.from(sortedEventsMap.entries()).map(([key, value]) => (
           <Event
             key={key}
             id={key}
             event={value}
             dailyMinutes={dailyMinutes}
+            containerHeight={containerHeight}
             color={EVENT_COLORS[key % EVENT_COLORS.length]}
           />
         ))}

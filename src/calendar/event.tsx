@@ -10,6 +10,7 @@ interface EventInterface {
   event: EventDetailsInterface;
   dailyMinutes: number;
   color: string;
+  containerHeight: number;
 }
 
 export const Event: React.FC<EventInterface> = ({
@@ -17,6 +18,7 @@ export const Event: React.FC<EventInterface> = ({
   event,
   dailyMinutes,
   color,
+  containerHeight,
 }) => {
   const { duration, timeSlot, overlaps, position } = event;
   const nbOfOverlaps = getMaxOverlappingEvents(overlaps.map((o) => o.on));
@@ -29,8 +31,8 @@ export const Event: React.FC<EventInterface> = ({
       className="event"
       style={{
         backgroundColor: color,
-        height: `${(duration / dailyMinutes) * 100}%`,
-        marginTop: `${(timeSlot[0] / dailyMinutes) * 100}%`,
+        height: `${(duration / dailyMinutes) * containerHeight}px`,
+        marginTop: `${(timeSlot[0] / dailyMinutes) * containerHeight}px`,
         width,
         left: `calc((${width} + var(--standard-space)) * ${position - 1})`,
       }}
