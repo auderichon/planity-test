@@ -4,6 +4,7 @@ import { Event } from "./event";
 import {
   getDurationInMinutes,
   getEventTimeSlot,
+  getMaxOverlappingEventsByEventId,
   getOverlappingEventsByEventId,
   getPositionByEventId,
 } from "./utils";
@@ -60,6 +61,11 @@ export const EventsList: React.FC = () => {
     orderedEventsWithTimeSlots
   );
 
+  // list number of overlapping events
+  const nbOverlappingEventsById = getMaxOverlappingEventsByEventId(
+    overlappingEventsById
+  );
+
   // get display positions
   const positions = getPositionByEventId(
     orderedEventsWithTimeSlots,
@@ -71,7 +77,7 @@ export const EventsList: React.FC = () => {
       map.set(id, {
         timeSlot,
         duration,
-        overlaps: overlappingEventsById[id],
+        overlaps: nbOverlappingEventsById[id],
         position: positions[id],
       });
       return map;

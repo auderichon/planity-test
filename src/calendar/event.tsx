@@ -1,7 +1,6 @@
 import React from "react";
 
 import { EventDetailsInterface, EventIdType } from "../types";
-import { getMaxOverlappingEvents } from "./utils";
 
 import "../styles/event.css";
 
@@ -21,10 +20,9 @@ export const Event: React.FC<EventInterface> = ({
   containerHeight,
 }) => {
   const { duration, timeSlot, overlaps, position } = event;
-  const nbOfOverlaps = getMaxOverlappingEvents(overlaps.map((o) => o.on));
   const width = `calc((100% - ${
-    nbOfOverlaps - 1
-  } * var(--standard-space))/${nbOfOverlaps})`;
+    overlaps - 1
+  } * var(--standard-space))/${overlaps})`;
 
   return (
     <div

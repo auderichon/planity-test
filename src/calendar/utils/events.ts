@@ -111,3 +111,30 @@ export const getMaxOverlappingEvents = (
   // include current event in overlap
   return maxOverlaps + 1;
 };
+
+export const getMaxOverlappingEventsByEventId = (
+  overlappingEvents: Record<
+    EventIdType,
+    { id: EventIdType; on: TimeSlotType }[]
+  >
+): Record<EventIdType, number> => {
+  //get max overlaps by event id
+  const maxOverlapsByEventId = {} as Record<EventIdType, number>;
+
+  for (const [eventId, overlaps] of Object.entries(overlappingEvents)) {
+    maxOverlapsByEventId[Number(eventId)] = getMaxOverlappingEvents(
+      overlaps.map((o) => o.on)
+    );
+  }
+
+  //get max overlaps of overlapping events
+  const maxOverlappingEvents = {} as Record<EventIdType, number>;
+
+  for (const [eventId, overlaps] of Object.entries(overlappingEvents)) {
+    const maxOverlapsList = overlaps.map((o) => maxOverlapsByEventId[o.id]);
+
+    maxOverlappingEvents[Number(eventId)] = Math.max(...maxOverlapsList, 1);
+  }
+
+  return maxOverlappingEvents;
+};
