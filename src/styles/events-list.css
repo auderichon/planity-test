@@ -1,6 +1,5 @@
 .eventsList {
   height: 100%;
-  /* height: calc(100vh - 2 * 20px); */
   width: 100%;
   border: var(--border-width) solid var(--color-grey);
   border-radius: var(--border-radius);
@@ -11,5 +10,4 @@
   position: relative;
   width: 100%;
   height: 100%;
-  /* height: calc(100vh - 2 * 20px - 2 * 5px); */
 }
