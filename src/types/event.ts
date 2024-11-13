@@ -15,6 +15,6 @@ export interface EventInputWithTimeSlotInterface extends EventInputInterface {
 export interface EventDetailsInterface {
   duration: EventInputInterface["duration"];
   timeSlot: TimeSlotType;
-  overlaps: { id: EventIdType; on: TimeSlotType }[];
+  overlaps: number;
   position: number;
 }
